@@ -1,13 +1,13 @@
 import React from 'react';
-import { Card, CardBody, CardImg, CardImgOverlay, CardText, CardTitle } from 'reactstrap';
-import Media from 'react-bootstrap/Media';
+import { Card, CardBody, CardImg, CardImgOverlay, CardText, CardTitle, BreadcrumbItem, Breadcrumb } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 //during initial call, dish is empty because user hasnt clicked. Thats why the problem. Did not write if else.
- function RenderComments({dish}) {
+ function RenderComments({comments}) {
 
     console.log("Rendercomments called!");
    
-    if(dish==null) {
+    if(comments==null) {
         return(
         <div>
             {console.log("Dish is null, as in components.")}
@@ -15,8 +15,7 @@ import Media from 'react-bootstrap/Media';
         );
     }
     else{
-        console.log(dish.name)
-        let comments = dish.comments;
+        
             if(comments!=null) {
                 return (
                     <div className="container">
@@ -81,13 +80,24 @@ import Media from 'react-bootstrap/Media';
         return(
             <div className="container">
                 <div className="row">
-                    <div  className="col-12 col-md-5 m-1">
-                        <RenderDish dish={props.dish} />
-                    </div>
-                    <div className="col-12 col-md-5 m-1">
-                        {console.log("Goddddd")}
-                        <RenderComments dish={props.dish} />
-                    </div> 
+                        <Breadcrumb>
+                            <BreadcrumbItem><Link to = "/menu">Menu</Link> </BreadcrumbItem>
+                            <BreadcrumbItem active> {props.dish.name} </BreadcrumbItem>
+                        </Breadcrumb>
+                        <div className="col-12">
+                            <h3> {props.dish.name} </h3>
+                            <hr/>
+                        </div>
+                </div>
+                <div className="row">
+
+                        <div  className="col-12 col-md-5 m-1">
+                            <RenderDish dish={props.dish} />
+                        </div>
+                        <div className="col-12 col-md-5 m-1">
+                            {console.log("Goddddd")}
+                            <RenderComments dish={props.comments} />
+                        </div> 
                 </div>
             </div>
         );
